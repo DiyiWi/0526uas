@@ -1,0 +1,155 @@
+.floor-list {
+    list-style: none;
+}
+.floor-list li {
+    border: 1px solid #428bca;
+    width: 300px;
+    margin-bottom: 20px;
+}
+.floor-list li a {
+    display: block;
+    line-height: 30px;
+    padding: 15px;
+    font-size: 24px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#floors {
+    width: 1190px;
+}
+.floor {
+    display: inline-block;
+    margin-bottom: 2em;
+}
+.floor .floor-item {
+    position: relative;
+    float: left;
+    overflow: hidden;
+}
+.floor .floor-item .floor-content {
+    position: absolute;
+    text-align: center;
+}
+.floor .floor-item.tiny {
+    width: 600px;
+    height: 46px;
+    float: right;
+    margin-top: -50px;
+}
+.floor .floor-item.tiny img {
+    width: 600px;
+    height: 46px;
+
+}
+.floor .floor-item.large {
+    position: relative;
+    width: 360px;
+    height: 440px;
+}
+.floor .floor-item.large img {
+    width: 360px;
+    height: 440px;
+}
+.floor .floor-item.large .floor-content {
+    top: 260px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+}
+.floor .floor-item.large .floor-item-name {
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: bold;
+}
+.floor .floor-item.large .floor-item-body {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+}
+.floor .floor-item.medium {
+    position: relative;
+    width: 390px;
+    height: 220px;
+}
+.floor .floor-item.medium img {
+    width: 390px;
+    height: 220px;
+}
+.floor .floor-item.medium .floor-content {
+    top: 50%;
+    left: 0;
+    right: 250px;
+    transform: translateY(-50%);
+    padding: 15px;
+}
+.floor .floor-item.medium .floor-item-name {
+    color: rgb(87, 87, 87);
+    font-size: 24px;
+}
+.floor .floor-item.medium .floor-item-body {
+    color: rgb(87, 87, 87);
+    font-size: 14px;
+}
+.floor .floor-item.small {
+    position: relative;
+    width: 220px;
+    height: 220px;
+}
+.floor .floor-item.small img {
+    width: 220px;
+    height: 220px;
+}
+.floor .floor-item.small .floor-content {
+    top: 130px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+}
+.floor .floor-item.small .floor-item-name {
+    color: rgb(87, 87, 87);
+    font-size: 18px;
+}
+.floor .floor-item.small .floor-item-body {
+    color: rgb(87, 87, 87);
+    font-size: 14px;
+}
+.floor .floor-item.medium, .floor .floor-item.small {
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+.floor .floor-item:nth-child(3), .floor .floor-item:nth-child(4), .floor .floor-item:nth-child(5) {
+    border-top: 1px solid #dddddd;
+}
+.floor .floor-item-index {
+    position: absolute;
+    display: block;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #ff0000;
+    text-align: center;
+    line-height: 20px;
+    color: #ff0000;
+    font-size: 16px;
+}
+.floor-item-mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    color: #ffffff;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+}
+.floor-item:hover .floor-item-mask {
+    display: block;
+}

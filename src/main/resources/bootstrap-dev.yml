@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      profile: dev
+      label: master
+      uri: http://10.10.100.23:28001/
+

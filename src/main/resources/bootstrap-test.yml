@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      profile: test
+      label: master
+      uri: http://configserver:28001/

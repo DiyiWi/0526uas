@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="轮播管理"/>
+    <meta name="author" content="cloud"/>
+    <link rel="icon" th:href="@{/favicon.ico}" />
+
+    <title>轮播管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/admin.css" th:href="@{/css/admin.css}" rel="stylesheet"/>
+    <link href="../static/css/carousel.css" th:href="@{/css/carousel.css}" rel="stylesheet"/>
+    <!--<link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>-->
+    <link href="../static/css/jquery.fileupload.css" th:href="@{/css/jquery.fileupload.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div th:include="tpls/nav"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="tpls/sidebar"></div>
+        <div class="main">
+            <h1>轮播管理</h1>
+            <ul class="list-unstyled carousel-menu-list">
+                <!--/*@thymesVar id="usedFor" type="java.util.List<String>"*/-->
+                <li th:each="item, itrStat : ${usedFor}">
+                    <a th:href="'carousels/' + ${item}" th:text="${item}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../static/js/ie10-viewport-bug-workaround.js" th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+<script src="../static/js/carousel.js" th:src="@{/js/carousel.js}"></script>
+
+</body>
+</html>

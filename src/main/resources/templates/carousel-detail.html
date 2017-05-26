@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="轮播管理"/>
+    <meta name="author" content="cloud"/>
+    <link rel="icon" th:href="@{/favicon.ico}" />
+
+    <title>轮播管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/admin.css" th:href="@{/css/admin.css}" rel="stylesheet"/>
+    <link href="../static/css/carousel.css" th:href="@{/css/carousel.css}" rel="stylesheet"/>
+    <!--<link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>-->
+    <link href="../static/css/jquery.fileupload.css" th:href="@{/css/jquery.fileupload.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div th:include="tpls/nav"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="tpls/sidebar"></div>
+        <div class="main">
+            <h1 class="page-header">轮播管理</h1>
+            <!--/*@thymesVar id="carousels" type="java.util.List<com.uas.cloud.mall.home.domain.Carousel>"*/-->
+            <div id="banner">
+                <div id="carousel" class="carousel slide"> <!--data-ride="carousel" 改为在js里面手动轮播，从而能够进行初始化-->
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel" class="active" th:each="carousel, iterStat : ${carousels}" th:class="${iterStat.index == 0} ? 'active'" th:attr="data-slide-to=${iterStat.index}">
+                        </li>
+                        <!--<li data-target="#carousel" data-slide-to="1"></li>-->
+                    </ol>
+                    <ul class="carousel-inner" role="listbox">
+                        <li th:each="carousel, iterStat : ${carousels}" th:class="${iterStat.index == 0} ? 'item active' : 'item'">
+                            <a>
+                                <img class="first-slide carousel-img" th:src="${carousel.pictureUrl}" alt="First slide" th:attr="data-carousel-id=${carousel.id}"/>
+                                <div class="container">
+                                    <div class="carousel-caption">
+                                        <p th:text="${carousel.body}"></p>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="baner-background-color-hack" th:value='${carousel.metadata.get("background-color")}' />
+                                <input type="hidden" class="metadata-hack" th:value='${carousel.metadata}' />
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div><!-- /.carousel -->
+            </div>
+
+            <!--不要使用form，会导致上传文件到错误地址-->
+            <div class="carousel-form form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用途</label>
+                    <div class="col-sm-2">
+                        <input type="text" name="usedFor" class="form-control" placeholder="用途" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">排序数字</label>
+                    <div class="col-sm-2">
+                        <input type="number" name="orderNumber" class="form-control" placeholder="排序数字" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2">图片地址</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="pictureUrl" id="picture-url" class="form-control" placeholder="图片链接地址"/>
+                    </div>
+                    <span class="btn btn-success fileinput-button">
+                        <span>选择文件</span>
+                        <input id="fileupload" type="file" name="file" />
+                    </span>
+
+                    <div id="upload-area">
+                        <div id="progress" class="progress">
+                            <div class="progress-bar progress-bar-success"></div>
+                        </div>
+                        <div id="file" class="file"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">链接地址</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="hrefUrl" class="form-control" placeholder="链接地址" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">轮播文本</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="body" class="form-control" placeholder="轮播文本" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">背景颜色</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="meta-background-color" class="form-control" placeholder="背景颜色，如#ff98be" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" id="add">新建</button>
+                        <button type="submit" class="btn btn-info" id="update">更新</button>
+                        <button type="submit" class="btn btn-danger" id="delete">删除</button>
+                        <button type="submit" class="btn btn-default" id="cancel">取消</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="carousels-data" th:text="${carouselsJson}"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../static/js/ie10-viewport-bug-workaround.js" th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+<script src="../static/js/jquery.ui.widget.js" th:src="@{/js/jquery.ui.widget.js}"></script>
+<script src="../static/js/jquery.fileupload.js" th:src="@{/js/jquery.fileupload.js}">
+</script>
+<script src="../static/js/load-image.all.min.js" th:src="@{/js/load-image.all.min.js}"></script>
+<script src="../static/js/jquery.fileupload-process.js" th:src="@{/js/jquery.fileupload-process.js}"></script>
+<script src="../static/js/jquery.fileupload-image.js" th:src="@{/js/jquery.fileupload-image.js}"></script>
+<script src="../static/js/jquery.fileupload-validate.js" th:src="@{/js/jquery.fileupload-validate.js}"></script>
+<script src="../static/js/carousel.js" th:src="@{/js/carousel.js}"></script>
+</body>
+</html>

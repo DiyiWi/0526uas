@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mall-admin-app
+  cloud:
+    config:
+      profile: test
+      label: master
+      uri: http://configserver:28001/
+

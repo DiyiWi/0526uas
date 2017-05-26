@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="楼层管理"/>
+    <meta name="author" content="cloud"/>
+    <link rel="icon" th:href="@{/favicon.ico}" />
+
+    <title>楼层管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/jquery.fileupload.css" th:href="@{/css/jquery.fileupload.css}" rel="stylesheet" />
+    <link href="../static/css/admin.css" th:href="@{/css/admin.css}" rel="stylesheet"/>
+    <link href="../static/css/floor.css" th:href="@{/css/floor.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="tpls/nav"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:include="tpls/sidebar"></div>
+        <div class="main">
+            <h3>楼层管理</h3>
+            <div id="floors">
+                <div class="floor" th:id="${floor.id}">
+                    <h2>
+                        H<span th:text="${floor.floorNumber}" th:attr="data-number=${floor.floorNumber}">楼层号</span>&nbsp;
+                        <span th:text="${floor.name}">楼层名称</span>
+                    </h2>
+                    <ul class="list-unstyled clearfix">
+                        <li th:each="item, iterStat : ${floor.items}" th:id="${item.id}" th:class="${'floor-item ' + item.size}" th:attr="data-size=${item.size}" >
+                            <a th:href="${item.hrefUrl}">
+                                <img th:src="${item.pictureUrl}" class="floor-item-img"/>
+                                <div class="floor-content">
+                                    <p th:text="${item.name}" class="floor-item-name"></p>
+                                    <p th:text="${item.body}" class="floor-item-body"></p>
+                                </div>
+                                <span class="floor-item-index" th:attr="data-index=${item.orderNumber}" th:text="${iterStat.index + 1}"></span>
+                            </a>
+                            <div class="floor-item-mask">
+                                点击进行编辑
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="detailForm">
+                <form class="form-horizontal">
+                    <input type="hidden" name="id" id="id"></input>
+                    <div class="form-group row">
+                        <label for="orderNumber" class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-2">
+                            <input type="number" class="form-control input-sm" id="orderNumber" name="orderNumber" placeholder="排序，从小到大"></input>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 control-label">商品名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" id="name" name="name" placeholder="商品名称"></input>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="body" class="col-sm-2 control-label">商品描述</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control input-sm" id="body" name="body" placeholder="商品描述"></input>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pictureUrl" class="col-sm-2 control-label">图片地址</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control input-sm" id="pictureUrl" name="pictureUrl" placeholder="商品图片链接地址"></input>
+                            <div class="x-picture-preview" style="display: none; margin-top: 15px;">
+                                <img src="" alt="" style="max-width: 100%; max-height: 200px;" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-info btn-sm x-btn-upload fileinput-button">上传
+                                <input type="file" class="x-upload"/>
+                            </button>
+                            <button class="btn btn-warning btn-sm x-btn-repository" disabled="disabled">从图片库选取</button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hrefUrl" class="col-sm-2 control-label">商品链接</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control input-sm" id="hrefUrl" name="hrefUrl" placeholder="商品点击要跳转的链接"></input>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="size" class="col-sm-2 control-label">类型</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" name="size" id="inlineRadio1" value="tiny"> 右上角</input>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="size" id="inlineRadio2" value="large"> 大（左一）</input>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="size" id="inlineRadio3" value="medium"> 中（左二上、下）</input>
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="size" id="inlineRadio3" value="small"> 小（左三、左四上、下）</input>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-success btn-sm x-btn-add">增加</button>
+                            <button type="button" class="btn btn-primary btn-sm x-btn-update" style="display: none">更新</button>
+                            <button type="button" class="btn btn-danger btn-sm x-btn-delete" style="display: none" disabled="disabled">删除</button>
+                            <button type="button" class="btn btn-default btn-sm x-btn-cancel" style="display: none">取消更新</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.ui.widget.js" th:src="@{/js/jquery.ui.widget.js}"></script>
+<script src="../static/js/jquery.fileupload.js" th:src="@{/js/jquery.fileupload.js}"></script>
+<script src="../static/js/floor.js" th:src="@{/js/floor.js}"></script>
+</html>

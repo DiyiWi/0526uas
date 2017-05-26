@@ -1,0 +1,17 @@
+<div class="sidebar">
+    <ul class="nav nav-sidebar">
+        <li th:class="${page=='admin'}?'active'"><a href=".">概览 <span class="sr-only">(current)</span></a></li>
+        <li th:class="${page=='report'}?'active'"><a href="/report">报告</a></li>
+        <li th:class="${page=='analyze'}?'active'"><a href="/analyze">分析</a></li>
+        <li th:class="${page=='export'}?'active'"><a href="/export">导出</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+        <li th:class="${page=='category'}?'active'"><a href="#/category">分类管理</a></li>
+        <li th:class="${page=='carousel'}?'active'"><a href="/carousels">轮播管理</a></li>
+        <li th:class="${page=='floors'}?'active'"><a href="/floors">楼层管理</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+        <li th:class="${page=='ad'}?'active'"><a href="#/ad">广告管理</a></li>
+        <li th:class="${page=='news'}?'active'"><a href="#/news">新闻管理</a></li>
+    </ul>
+</div>
